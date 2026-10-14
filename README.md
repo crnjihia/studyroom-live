@@ -4,7 +4,8 @@
 
 **Google-Docs-class, real-time collaborative document editor engineered with mathematical CRDTs for university group assignments.**
 
-[![CI](https://github.com/crnjihia/studyroom-live/actions/workflows/ci.yml/badge.svg)](https://github.com/crnjihia/studyroom-live/actions/workflows/ci.yml)
+[![GitHub Pages](https://img.shields.io/badge/GitHub_Pages-Live_Showcase-059669?logo=github&logoColor=white)](https://crnjihia.github.io/draftroom-live/)
+[![CI](https://github.com/crnjihia/draftroom-live/actions/workflows/ci.yml/badge.svg)](https://github.com/crnjihia/draftroom-live/actions/workflows/ci.yml)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.x-blue.svg?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 [![Next.js](https://img.shields.io/badge/Next.js-14_App_Router-black.svg?logo=next.js&logoColor=white)](https://nextjs.org/)
 [![TipTap](https://img.shields.io/badge/TipTap-2.x_ProseMirror-teal.svg?logo=prosemirror&logoColor=white)](https://tiptap.dev/)
@@ -29,6 +30,8 @@
 ---
 
 ## 📖 Overview
+
+> 🚀 **Live Interactive Showcase**: Explore the real-time CRDT dual-client editor, drift-free comment anchoring playground, and SHA-256 snapshot deduplication at **[crnjihia.github.io/draftroom-live](https://crnjihia.github.io/draftroom-live/)**.
 
 **StudyRoom Live** is an open-source, production-grade collaborative document platform tailored for high-concurrency university group assignments. Built to eliminate the friction of group projects across Kenyan universities (**USIU-Africa**, **University of Nairobi**, and **Strathmore University**), StudyRoom Live combines peer-to-peer CRDT primitives with centralized cloud durability.
 

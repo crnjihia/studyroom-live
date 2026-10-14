@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>StudyRoom Live ✍️ 🇰🇪 | Real-Time Collaborative Document Editor with Mathematical CRDTs</title>
+  <meta name="description" content="Production-grade, Google-Docs-class collaborative document editor engineered with Yjs CRDTs, drift-free relative comment anchors, and SHA-256 snapshot deduplication for Kenyan university group assignments.">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Navigation -->
+  <header class="navbar">
+    <div class="container nav-container">
+      <a href="#" class="brand">
+        <div class="brand-icon">✍️</div>
+        <div class="brand-text">
+          <span>StudyRoom Live</span>
+          <span class="brand-tag">v0.1.0</span>
+        </div>
+      </a>
+
+      <nav>
+        <ul class="nav-links">
+          <li><a href="#simulator" class="nav-link">CRDT Simulator</a></li>
+          <li><a href="#anchoring" class="nav-link">Anchor Playground</a></li>
+          <li><a href="#snapshots" class="nav-link">SHA-256 Snapshots</a></li>
+          <li><a href="#workspaces" class="nav-link">University Presets</a></li>
+          <li><a href="#topology" class="nav-link">System Topology</a></li>
+          <li><a href="#quickstart" class="nav-link">Quickstart</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-actions">
+        <button id="theme-toggle-btn" class="btn-icon" aria-label="Toggle theme" title="Toggle dark/light theme">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+        </button>
+        <a href="https://github.com/crnjihia/draftroom-live" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+          <span>GitHub</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-badge-wrap">
+        <span class="pulse-dot"></span>
+        <span>Yjs v13 Mathematical CRDTs • WebSocket Engine</span>
+      </div>
+
+      <h1 class="hero-title">
+        Real-Time Collaborative Document Editor with <span class="gradient-text">Mathematical CRDTs</span>
+      </h1>
+
+      <p class="hero-description">
+        Engineered for high-concurrency university group assignments across Kenyan institutions 
+        (<strong>USIU-Africa</strong>, <strong>University of Nairobi</strong>, and <strong>Strathmore University</strong>). 
+        Eliminates operational transformation merge conflicts via commutative CRDTs, binds comment threads to mathematical relative positions, and automates SHA-256 snapshot deduplication.
+      </p>
+
+      <div class="hero-actions">
+        <a href="#simulator" class="btn btn-primary">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+          <span>Launch Dual-Client Simulator</span>
+        </a>
+        <a href="#anchoring" class="btn btn-secondary">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          <span>Test Relative Anchoring</span>
+        </a>
+      </div>
+
+      <!-- Metric HUD Ribbon -->
+      <div class="metrics-ribbon">
+        <div class="metric-card" style="--card-accent: var(--accent-emerald);">
+          <div class="metric-header">
+            <div class="metric-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+            </div>
+            <span class="metric-badge">Commutative</span>
+          </div>
+          <div class="metric-value">0</div>
+          <div class="metric-label">Merge Conflicts</div>
+          <div class="metric-sub">Mathematically guaranteed convergence</div>
+        </div>
+
+        <div class="metric-card" style="--card-accent: var(--accent-cyan);">
+          <div class="metric-header">
+            <div class="metric-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            </div>
+            <span class="metric-badge">Ultra-Fast</span>
+          </div>
+          <div class="metric-value">&lt; 300ms</div>
+          <div class="metric-label">Multi-Region P99 Sync</div>
+          <div class="metric-sub">Hocuspocus WebSocket gateway</div>
+        </div>
+
+        <div class="metric-card" style="--card-accent: var(--accent-indigo);">
+          <div class="metric-header">
+            <div class="metric-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            </div>
+            <span class="metric-badge">Awareness</span>
+          </div>
+          <div class="metric-value">50ms</div>
+          <div class="metric-label">Throttled Live Carets</div>
+          <div class="metric-sub">Low-jitter presence & typing indicators</div>
+        </div>
+
+        <div class="metric-card" style="--card-accent: var(--accent-amber);">
+          <div class="metric-header">
+            <div class="metric-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            </div>
+            <span class="metric-badge">Persistence</span>
+          </div>
+          <div class="metric-value">SHA-256</div>
+          <div class="metric-label">Snapshot Deduplication</div>
+          <div class="metric-sub">Zero redundant database writes</div>
+        </div>
+      </div>
+
+      <!-- Production UI Showcase Card -->
+      <div class="preview-card">
+        <div class="preview-browser-header">
+          <div class="browser-dots">
+            <span class="browser-dot red"></span>
+            <span class="browser-dot yellow"></span>
+            <span class="browser-dot green"></span>
+          </div>
+          <div class="browser-address">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            <span>localhost:3001/documents/usiu-apt3040-distributed-sys</span>
+          </div>
+          <div style="width: 48px;"></div>
+        </div>
+
+        <div class="preview-image-wrap" title="Click to view full-resolution screenshot">
+          <img src="screenshots/dashboard-dark.png" alt="StudyRoom Live Dark Mode Editor & Dashboard">
+          <div class="preview-overlay-tag">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
+            <span>Click to Zoom UI</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Module 1: Dual-Client CRDT Simulator -->
+  <section id="simulator" class="section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Interactive Simulation</span>
+        <h2 class="section-title">Dual-Client Real-Time CRDT Synchronization</h2>
+        <p class="section-subtitle">
+          Experience real-time document convergence across two simulated university collaborators in separate browser contexts. Every keystroke emits a binary CRDT update that commutes without locks or merge conflicts.
+        </p>
+      </div>
+
+      <div class="simulator-container">
+        <div class="simulator-toolbar">
+          <div class="sim-controls-group">
+            <button id="sim-action-1" class="btn btn-secondary">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              <span>Amina: Add CAP Theorem Note</span>
+            </button>
+            <button id="sim-action-2" class="btn btn-secondary">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              <span>Brian: Add Raft Heartbeat</span>
+            </button>
+            <button id="sim-action-reset" class="btn btn-secondary">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+              <span>Reset</span>
+            </button>
+          </div>
+
+          <div class="sim-slider-wrap">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            <span>Network Latency:</span>
+            <input type="range" id="latency-slider" min="0" max="800" step="20" value="120">
+            <strong id="latency-val">120ms</strong>
+          </div>
+        </div>
+
+        <div class="dual-windows">
+          <!-- Client A -->
+          <div class="sim-window">
+            <div class="sim-window-header">
+              <div class="collaborator-chip">
+                <div class="collaborator-avatar" style="background: #6366f1;">AO</div>
+                <div class="collaborator-details">
+                  <div class="collab-name">Amina Odhiambo</div>
+                  <div class="collab-uni">USIU-Africa • Lead Author</div>
+                </div>
+              </div>
+              <span class="brand-tag" style="background: rgba(99, 102, 241, 0.15); color: #818cf8; border-color: rgba(99, 102, 241, 0.3);">Client A Replica</span>
+            </div>
+
+            <div class="sim-window-body">
+              <div class="editor-label">
+                <span>TipTap 2 Editor (Y.Doc prosemirror)</span>
+                <span id="caret-a-from-b" class="remote-caret-indicator">
+                  <span style="color: #06b6d4;">●</span> Brian's caret active
+                </span>
+              </div>
+              <textarea id="textarea-client-a" class="sim-textarea" placeholder="Type here as Amina... edits replicate instantly to Brian."></textarea>
+            </div>
+          </div>
+
+          <!-- Client B -->
+          <div class="sim-window">
+            <div class="sim-window-header">
+              <div class="collaborator-chip">
+                <div class="collaborator-avatar" style="background: #06b6d4;">BK</div>
+                <div class="collaborator-details">
+                  <div class="collab-name">Brian Kiprop</div>
+                  <div class="collab-uni">Univ. of Nairobi • Systems Eng</div>
+                </div>
+              </div>
+              <span class="brand-tag" style="background: rgba(6, 182, 212, 0.15); color: #22d3ee; border-color: rgba(6, 182, 212, 0.3);">Client B Replica</span>
+            </div>
+
+            <div class="sim-window-body">
+              <div class="editor-label">
+                <span>TipTap 2 Editor (Y.Doc prosemirror)</span>
+                <span id="caret-b-from-a" class="remote-caret-indicator">
+                  <span style="color: #6366f1;">●</span> Amina's caret active
+                </span>
+              </div>
+              <textarea id="textarea-client-b" class="sim-textarea" placeholder="Type here as Brian... edits replicate instantly to Amina."></textarea>
+            </div>
+          </div>
+        </div>
+
+        <!-- Real-Time CRDT Feed -->
+        <div class="sim-crdt-feed">
+          <div class="feed-header">
+            <span>Live Yjs CRDT Vector Clock & State Updates</span>
+            <span>Hocuspocus WS Protocol</span>
+          </div>
+          <div id="crdt-feed-list" class="crdt-log-list">
+            <div class="crdt-log-entry sync">[System] WebSocket peer session established on ws://localhost:1234/usiu-apt3040</div>
+            <div class="crdt-log-entry">[StateVector] ClientA: { amina: 8, brian: 6 } | ClientB: { amina: 8, brian: 6 }</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Module 2: Drift-Free Comment Anchoring -->
+  <section id="anchoring" class="section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Mathematical Invariant</span>
+        <h2 class="section-title">Drift-Free Relative Position Comment Anchoring</h2>
+        <p class="section-subtitle">
+          Standard document editors anchor comments to numeric string offsets (e.g. chars 37–86), causing comments to drift onto wrong text whenever preceding paragraphs are edited. StudyRoom Live binds comment anchors directly to CRDT Item IDs via <code>Y.RelativePosition</code>.
+        </p>
+      </div>
+
+      <div class="anchor-playground">
+        <!-- Left: Classic Index Anchoring -->
+        <div class="anchor-card">
+          <div class="anchor-title-bar">
+            <h3>Classic Numeric Index Anchoring</h3>
+            <span class="anchor-mode-badge badge-warning">Prone to Anchor Drift</span>
+          </div>
+          <p style="font-size: 0.85rem; color: var(--text-muted);">
+            Stores fixed character range <code>[37, 86]</code> in database. When text is inserted before the target, the highlight detaches or drifts onto unrelated words.
+          </p>
+
+          <div id="classic-doc-preview" class="interactive-doc-preview"></div>
+          <div id="classic-math-preview" class="anchor-math-box"></div>
+        </div>
+
+        <!-- Right: StudyRoom Live RelativePosition -->
+        <div class="anchor-card">
+          <div class="anchor-title-bar">
+            <h3>StudyRoom Live RelativePosition</h3>
+            <span class="anchor-mode-badge badge-success">Drift-Free Mathematical Anchor</span>
+          </div>
+          <p style="font-size: 0.85rem; color: var(--text-muted);">
+            Stores <code>Y.createRelativePositionFromTypeIndex</code> tuple. The anchor tracks the underlying CRDT Node ID regardless of preceding text additions or deletions.
+          </p>
+
+          <div id="relative-doc-preview" class="interactive-doc-preview"></div>
+          <div id="relative-math-preview" class="anchor-math-box"></div>
+        </div>
+      </div>
+
+      <!-- Controls -->
+      <div class="anchor-actions" style="margin-top: 1.5rem; justify-content: center;">
+        <button id="anchor-btn-prepend" class="btn btn-secondary">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          <span>Insert Text Before Anchor (Trigger Drift)</span>
+        </button>
+        <button id="anchor-btn-delete" class="btn btn-secondary">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+          <span>Delete Text Before Anchor</span>
+        </button>
+        <button id="anchor-btn-reset" class="btn btn-secondary">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+          <span>Reset Text</span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Module 3: SHA-256 Snapshot Deduplication & Diff -->
+  <section id="snapshots" class="section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Durability & Storage</span>
+        <h2 class="section-title">SHA-256 Snapshot Deduplication & Visual LCS Diff</h2>
+        <p class="section-subtitle">
+          The collab server triggers a 30-second autosave heartbeat. If the document state update hash matches the latest snapshot in PostgreSQL, redundant writes are skipped. Modified states commit a new version with word-level LCS visual diffing.
+        </p>
+      </div>
+
+      <div class="snapshot-container">
+        <!-- Interactive Live Document State Tester -->
+        <div style="margin-bottom: 1.5rem; display: flex; flex-direction: column; gap: 0.75rem;">
+          <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: gap: 1rem;">
+            <label style="font-weight: 700; font-size: 0.9rem;">Live Document Buffer for Autosave Heartbeat:</label>
+            <div style="display: flex; gap: 0.5rem;">
+              <button id="modify-snapshot-text-btn" class="btn btn-secondary" style="font-size: 0.8rem; padding: 0.35rem 0.75rem;">
+                <span>Edit Document Content</span>
+              </button>
+              <button id="trigger-snapshot-btn" class="btn btn-primary" style="font-size: 0.8rem; padding: 0.35rem 0.75rem;">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+                <span>Trigger 30s Autosave</span>
+              </button>
+            </div>
+          </div>
+          <textarea id="snapshot-live-input" class="sim-textarea" style="min-height: 80px;" placeholder="Document text to test snapshot deduplication..."></textarea>
+        </div>
+
+        <!-- Timeline of Snapshots -->
+        <div style="font-size: 0.8rem; font-weight: 700; text-transform: uppercase; color: var(--text-dim); margin-bottom: 0.5rem;">
+          Snapshot Version History Timeline (Click node to inspect diff):
+        </div>
+        <div id="snapshot-timeline-track" class="timeline-track"></div>
+
+        <!-- Diff Card -->
+        <div class="diff-modal-card">
+          <div id="snapshot-diff-output"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Module 4: University Workspaces -->
+  <section id="workspaces" class="section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Multi-Institution Support</span>
+        <h2 class="section-title">Kenyan University Assignment Presets</h2>
+        <p class="section-subtitle">
+          Built-in presets tailored for university group coursework across USIU-Africa, University of Nairobi, and Strathmore University.
+        </p>
+      </div>
+
+      <div class="workspace-tabs">
+        <button class="tab-btn active" data-uni="usiu">USIU-Africa</button>
+        <button class="tab-btn" data-uni="uon">Univ. of Nairobi</button>
+        <button class="tab-btn" data-uni="strathmore">Strathmore Univ.</button>
+      </div>
+
+      <div class="workspace-detail-card">
+        <div class="workspace-col">
+          <div style="display: flex; flex-direction: column; gap: 0.4rem;">
+            <span id="uni-full-name" style="font-size: 0.8rem; font-weight: 700; color: var(--accent-emerald); text-transform: uppercase;"></span>
+            <h3 id="uni-course-title" style="font-size: 1.35rem; font-weight: 800;"></h3>
+            <p id="uni-doc-title" style="color: var(--text-muted); font-size: 0.95rem;"></p>
+          </div>
+
+          <div style="background: var(--bg-secondary); border-radius: var(--radius-sm); padding: 1rem; border: 1px solid var(--border-subtle);">
+            <div style="font-size: 0.75rem; color: var(--text-dim); text-transform: uppercase; margin-bottom: 0.35rem;">Primary Student Persona</div>
+            <div id="uni-student-name" style="font-weight: 700; font-size: 1rem;"></div>
+          </div>
+        </div>
+
+        <div class="workspace-col">
+          <div style="font-size: 0.85rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase;">
+            Course Assignment Rubric & Invariants:
+          </div>
+          <ul id="uni-rubric-list" class="rubric-list"></ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Module 5: System Topology -->
+  <section id="topology" class="section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Architecture</span>
+        <h2 class="section-title">Horizontally Scaled Microservice Topology</h2>
+        <p class="section-subtitle">
+          Engineered for fault-tolerant, low-latency collaboration using dedicated WebSocket workers, distributed Redis pub/sub state replication, and relational PostgreSQL storage.
+        </p>
+      </div>
+
+      <div class="topology-grid">
+        <div class="topology-node">
+          <span class="topology-badge">Port :3001</span>
+          <div class="topology-title">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--accent-emerald)" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+            <span>Next.js 14 Web App</span>
+          </div>
+          <p class="topology-desc">
+            Next.js App Router frontend powering TipTap 2 / ProseMirror editor, y-indexeddb offline cache, and live presence bar.
+          </p>
+          <div class="topology-meta">@tiptap/react • yjs • tailwindcss</div>
+        </div>
+
+        <div class="topology-node">
+          <span class="topology-badge">Port :1234</span>
+          <div class="topology-title">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--accent-cyan)" stroke-width="2"><path d="M4 11a9 9 0 0 1 9 9"/><path d="M4 4a16 16 0 0 1 16 16"/><circle cx="5" cy="19" r="1"/></svg>
+            <span>Hocuspocus Server</span>
+          </div>
+          <p class="topology-desc">
+            High-performance WebSocket gateway synchronizing binary Yjs updates across concurrent room collaborators.
+          </p>
+          <div class="topology-meta">@hocuspocus/server • WebSocket</div>
+        </div>
+
+        <div class="topology-node">
+          <span class="topology-badge">Port :6379</span>
+          <div class="topology-title">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--accent-indigo)" stroke-width="2"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+            <span>Redis 7 Pub/Sub</span>
+          </div>
+          <p class="topology-desc">
+            Horizontal multi-server state synchronization. Replicates awareness and binary Y.Doc updates across distributed collab nodes.
+          </p>
+          <div class="topology-meta">Redis Adapter • Multi-Server Sync</div>
+        </div>
+
+        <div class="topology-node">
+          <span class="topology-badge">Port :5432</span>
+          <div class="topology-title">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--accent-amber)" stroke-width="2"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
+            <span>PostgreSQL 16 & Prisma</span>
+          </div>
+          <p class="topology-desc">
+            Durable document storage, named milestone snapshots, and threaded anchored comments with SHA-256 deduplication.
+          </p>
+          <div class="topology-meta">Prisma ORM • Bytea ydocState</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Module 6: Quickstart Stepper -->
+  <section id="quickstart" class="section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Developer Setup</span>
+        <h2 class="section-title">Local Development Quickstart</h2>
+        <p class="section-subtitle">
+          Run StudyRoom Live locally in under 3 minutes using Docker Compose and npm workspaces.
+        </p>
+      </div>
+
+      <div class="stepper-wrap">
+        <div class="step-card">
+          <div class="step-num">1</div>
+          <div class="step-body">
+            <div class="step-title">Clone the Repository & Install Dependencies</div>
+            <div class="step-desc">StudyRoom Live is structured as an npm monorepo with web, collab-server, and shared workspaces.</div>
+            <div class="code-box">
+              <code>git clone https://github.com/crnjihia/draftroom-live.git && cd draftroom-live && npm install</code>
+              <button class="btn-copy" onclick="copyCode(this, 'git clone https://github.com/crnjihia/draftroom-live.git && cd draftroom-live && npm install')">Copy</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="step-card">
+          <div class="step-num">2</div>
+          <div class="step-body">
+            <div class="step-title">Start PostgreSQL & Redis Infrastructure</div>
+            <div class="step-desc">Spin up PostgreSQL 16 on port 5432 and Redis 7 on port 6379 via Docker Compose.</div>
+            <div class="code-box">
+              <code>docker compose up -d db redis</code>
+              <button class="btn-copy" onclick="copyCode(this, 'docker compose up -d db redis')">Copy</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="step-card">
+          <div class="step-num">3</div>
+          <div class="step-body">
+            <div class="step-title">Generate Prisma Client & Push Database Schema</div>
+            <div class="step-desc">Initialize relational tables for documents, snapshots, and threaded comments.</div>
+            <div class="code-box">
+              <code>npm run prisma:generate && npm run prisma:migrate</code>
+              <button class="btn-copy" onclick="copyCode(this, 'npm run prisma:generate && npm run prisma:migrate')">Copy</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="step-card">
+          <div class="step-num">4</div>
+          <div class="step-body">
+            <div class="step-title">Launch Concurrent Development Services</div>
+            <div class="step-desc">Starts both the Hocuspocus collab server (:1234) and the Next.js 14 web app (:3001).</div>
+            <div class="code-box">
+              <code>npm run dev</code>
+              <button class="btn-copy" onclick="copyCode(this, 'npm run dev')">Copy</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Modal Lightbox for UI Screenshot -->
+  <div id="lightbox-modal" class="modal-overlay">
+    <div class="modal-content">
+      <button id="lightbox-close" class="modal-close" aria-label="Close modal">&times;</button>
+      <img src="screenshots/dashboard-dark.png" alt="StudyRoom Live Dark Mode UI">
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div class="toast"></div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="brand">
+            <div class="brand-icon">✍️</div>
+            <div class="brand-text">
+              <span>StudyRoom Live</span>
+              <span class="brand-tag">Kenya 🇰🇪</span>
+            </div>
+          </div>
+          <p class="footer-desc">
+            Production-grade, conflict-free document editor engineered with mathematical CRDTs for university group assignments. Built for USIU-Africa, University of Nairobi, and Strathmore University.
+          </p>
+        </div>
+
+        <div>
+          <h4 class="footer-heading">Architecture</h4>
+          <ul class="footer-links">
+            <li><a href="#simulator" class="footer-link">CRDT Synchronization</a></li>
+            <li><a href="#anchoring" class="footer-link">Relative Position Anchors</a></li>
+            <li><a href="#snapshots" class="footer-link">SHA-256 Deduplication</a></li>
+            <li><a href="#topology" class="footer-link">Microservice Topology</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="footer-heading">Open Source</h4>
+          <ul class="footer-links">
+            <li><a href="https://github.com/crnjihia/draftroom-live" target="_blank" rel="noopener noreferrer" class="footer-link">GitHub Repository</a></li>
+            <li><a href="https://github.com/crnjihia/draftroom-live/blob/main/LICENSE" target="_blank" rel="noopener noreferrer" class="footer-link">MIT License</a></li>
+            <li><a href="https://github.com/crnjihia/draftroom-live/blob/main/CONTRIBUTING.md" target="_blank" rel="noopener noreferrer" class="footer-link">Contributing Guide</a></li>
+            <li><a href="#quickstart" class="footer-link">Local Docker Guide</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div>&copy; 2026 StudyRoom Live. Released under the MIT License.</div>
+        <div>Hosted on <strong>GitHub Pages</strong> with automated GitHub Actions CI/CD</div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
