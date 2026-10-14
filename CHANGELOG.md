@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Initial Release
 
-We are excited to announce the initial release of **StudyRoom Live (v0.1.0)** — a Google-Docs-class, real-time collaborative document platform engineered with mathematical CRDTs for university group assignments and Kenyan higher education (USIU-Africa, University of Nairobi, Strathmore University).
+I am excited to announce the initial release of **StudyRoom Live (v0.1.0)** — a Google-Docs-class, real-time collaborative document platform engineered with mathematical CRDTs for university group assignments and Kenyan higher education (USIU-Africa, University of Nairobi, Strathmore University).
 
 ### Features & Architecture Highlights
 

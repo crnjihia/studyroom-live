@@ -312,7 +312,7 @@ studyroom-live/
 
 ## 🤝 Contributing
 
-Contributions are warmly welcomed! Please read our [Contributing Guidelines](CONTRIBUTING.md) before submitting pull requests.
+Contributions are warmly welcomed! Please read my [Contributing Guidelines](CONTRIBUTING.md) before submitting pull requests.
 
 ---
 
