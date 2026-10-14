@@ -35,10 +35,13 @@ jobs:
         id: image-names
         run: |
           # Ensure lowercase repository string for Docker image naming compatibility
+          OWNER_LOWER=$(echo "${{ github.repository_owner }}" | tr '[:upper:]' '[:lower:]')
           REPO_LOWER=$(echo "${{ github.repository }}" | tr '[:upper:]' '[:lower:]')
           VERSION_TAG=${GITHUB_REF_NAME#v}
-          echo "web_image=ghcr.io/${REPO_LOWER}-web" >> $GITHUB_OUTPUT
-          echo "collab_image=ghcr.io/${REPO_LOWER}-collab" >> $GITHUB_OUTPUT
+          echo "web_image=ghcr.io/${OWNER_LOWER}/studyroom-live-web" >> $GITHUB_OUTPUT
+          echo "collab_image=ghcr.io/${OWNER_LOWER}/studyroom-live-collab" >> $GITHUB_OUTPUT
+          echo "web_image_alt=ghcr.io/${REPO_LOWER}-web" >> $GITHUB_OUTPUT
+          echo "collab_image_alt=ghcr.io/${REPO_LOWER}-collab" >> $GITHUB_OUTPUT
           echo "version=${VERSION_TAG}" >> $GITHUB_OUTPUT
 
       # ------------------------------------------------------------------------
@@ -54,6 +57,9 @@ jobs:
             ${{ steps.image-names.outputs.web_image }}:${{ steps.image-names.outputs.version }}
             ${{ steps.image-names.outputs.web_image }}:${{ github.ref_name }}
             ${{ steps.image-names.outputs.web_image }}:latest
+            ${{ steps.image-names.outputs.web_image_alt }}:${{ steps.image-names.outputs.version }}
+            ${{ steps.image-names.outputs.web_image_alt }}:${{ github.ref_name }}
+            ${{ steps.image-names.outputs.web_image_alt }}:latest
           build-args: |
             NEXT_PUBLIC_APP_URL=http://localhost:3000
             NEXT_PUBLIC_COLLAB_SERVER_URL=http://localhost:4000
@@ -72,6 +78,9 @@ jobs:
             ${{ steps.image-names.outputs.collab_image }}:${{ steps.image-names.outputs.version }}
             ${{ steps.image-names.outputs.collab_image }}:${{ github.ref_name }}
             ${{ steps.image-names.outputs.collab_image }}:latest
+            ${{ steps.image-names.outputs.collab_image_alt }}:${{ steps.image-names.outputs.version }}
+            ${{ steps.image-names.outputs.collab_image_alt }}:${{ github.ref_name }}
+            ${{ steps.image-names.outputs.collab_image_alt }}:latest
 
       # ------------------------------------------------------------------------
       # 3. Create Official GitHub Release with Asset Bundle
@@ -80,6 +89,7 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           name: StudyRoom Live ${{ github.ref_name }}
+          body_path: CHANGELOG.md
           generate_release_notes: true
           draft: false
           prerelease: false
